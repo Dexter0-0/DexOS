@@ -16,6 +16,8 @@ PrintText:
 		cmp al, 0
 		je IterateTextEnd
 
+		; TODO: detect the new line character a call PrintNewLine when found
+
 		; Else Print the character and repeat with the next character
 		mov ah, 0x0e
 		int 0x10
@@ -27,8 +29,9 @@ PrintText:
 		ret
 
 
-; Prints hex values by converting them to strings and
-; calling PrintText with the converted value
+; Prints hex values by converting them to a string stored 
+; in the HexString label and calling PrintText with the 
+; converted value at the end
 
 PrintHex:
   	; Push register values onto the stack for later use
@@ -73,7 +76,7 @@ PrintHex:
 		; Print the HexString using PrintText
 		mov bx, HexString   
 		call PrintText
-		
+
 		; Pop the initial register values back from the stack an return
 		popa              
 		ret          
